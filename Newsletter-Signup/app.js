@@ -46,8 +46,15 @@ app.post("/", (req, res) => {
 		auth: "tatenda17:f1e0cb4133f9442f2c5d6ddd861f76d9-us21"
 	}
 
-	//https request
+	//On success send users to success, otherwise on failure
    const request = https.request(url, options, (response) => {
+
+	if (response.statusCode === 200) {
+		res.send("Successfully subscribed!");
+	} else {
+		res.send("There was an error with signing up, please try again")
+	}
+
 		response.on("data", (data) => {
 			console.log(JSON.parse(data));
 		});
@@ -60,12 +67,9 @@ app.post("/", (req, res) => {
 
 });
 
-
-const port = 4400;
-
-app.listen(port, () => {
-	console.log("Server is running on port: ${port}")
-})
+app.listen(3000, () => {
+	console.log("Server is running on port: 8000");
+});
 
 //mailchamp servers apiKey
 //f1e0cb4133f9442f2c5d6ddd861f76d9-us21
